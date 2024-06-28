@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Widget</title>
+    <style>
+        body { 
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .widget {
+            width: 680px;
+            height: 200px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #4caf50;
+        }
+        .todo-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #c7c7c7;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+        .todo-item:hover {
+            background-color: #e0e0e0;
+        }
+        .todo-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .todo-item label {
+            flex-grow: 1;
+            font-size: 16px;
+        }
+        .strikethrough {
+            text-decoration: line-through;
+            color: #999;
+        }
+        .input-area {
+            display: flex;
+            align-items: center;
+        }
+        .input-area input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .input-area button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .input-area button:hover {
+            background-color: #45a049;
+        }
+        .input-area button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <div class="header">To-Do List</div>
+        <div class="todo-list" id="todo-list"></div>
+        <div class="input-area">
+            <input type="text" id="todo-input" placeholder="Add a new to-do">
+            <button id="add-button">Add</button>
+        </div>
+    </div>
+
+    <script>
+        const todoList = document.getElementById('todo-list');
+        const todoInput = document.getElementById('todo-input');
+        const addButton = document.getElementById('add-button');
+        let todos = [];
+
+        function addTodo() {
+            const todoText = todoInput.value.trim();
+            if (todoText && todos.length < 10) {
+                const todoItem = document.createElement('div');
+                todoItem.className = 'todo-item';
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.addEventListener('click', () => completeTodo(todoItem));
+                const label = document.createElement('label');
+                label.textContent = todoText;
+                todoItem.appendChild(checkbox);
+                todoItem.appendChild(label);
+                todoList.appendChild(todoItem);
+                todos.push(todoItem);
+                todoInput.value = '';
+                updateButtonState();
+            }
+        }
+
+        function completeTodo(todoItem) {
+            todoItem.classList.add('strikethrough');
+            setTimeout(() => {
+                todoList.removeChild(todoItem);
+                todos = todos.filter(todo => todo !== todoItem);
+                updateButtonState();
+            }, 5000);
+        }
+
+        function updateButtonState() {
+            addButton.disabled = todos.length >= 10;
+        }
+
+        addButton.addEventListener('click', addTodo);
+        todoInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                addTodo();
+            }
+        });
+
+        updateButtonState();
+    </script>
+</body>
+</html>

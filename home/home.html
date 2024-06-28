@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Active+</title>
+</head>
+<body>
+  
+    <div class="top"><center><img src="/resources/textwlogo.png"  width="200px"></center></div>
+    <div class="wb">
+        <p style="font-size: large;line-height: 0%;"><b>Welcome Back,</b></p> 
+        <p id="username" style="font-size: xxx-large;line-height: 0; font-family: 'Righteous', sans-serif;margin-top: 0.px;">[USERNAME]</p>
+    </div>
+    <div class="sts"><br><p style="margin-top:-10px; ;"><b>Statistics</b></p>
+        <div class="topsts">
+          <div id="multi" class="example" style="width: 120px;"></div>
+          <div class="stuff">
+            <p><img src="/resources/icons/foot.png"><repl id="steps">Steps:[objection]</repl></p>
+            <p><img src="/resources/icons/water.png"><repl id="water">Water:[objection]</repl></p>
+            <p><img src="/resources/icons/sleep.png"><repl id="sleeptime">Sleep Time:[objection]</repl></p>
+            <p><img src="/resources/icons/burns.png"><repl id="activemin">Active Minutes:[objection]</repl></p>
+          </div>
+        </div>
+        <br>
+        <iframe src="widgets/water.html" style="margin-right: -40px;" height="75" frameborder="0" width="344">Browser not compatible.</iframe>
+        <div class="inners">
+         <p style="font-size: 20px; font-family:Tilt Neon;" >"All progress takes place outside the comfort zone."<br><br>--George Micheal</p>
+      </div>
+  <div class="nav">
+    <div style="display:flex;width:50%;;cursor: pointer;" onclick="window.open('/home/home.html','_self')" class="navu"><img src='/resources/icons/home.png' width="40px"><p style="font-size: large;margin-left: 10px;">Home</p></div>
+    
+    <div style="display:flex;width:50%;padding-left: 170px;cursor: pointer;" onclick="window.open('/You/you.html','_self')"class="navu"><p style="font-size: large;margin-right: 10px;">You</p><img src='/resources/icons/user.png' width="40px"></div>
+  </div>
+  <style>/* nav bar*/
+    .nav{
+        display: flex;
+        background-color: rgb(241, 205, 0);
+        width: 100%;
+        height: 40px;
+        margin-left: -15px;
+        padding: 10px;
+        position: fixed;
+      bottom: 0;
+    }</style>
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="/scripts/radial-progress-bar.js"></script>
+    <script>// Initialize the four radial progress bars
+       // Initialize the four radial progress bars
+var c = jQuery("#multi").radialMultiProgress("init", {
+  fontSize: 0.2,
+  fill: 60,
+  data: [
+    { color: "#7e3878", range: [0, 100] }, // steps
+    { color: "#00ABA9", range: [0, 100] }, // Circle 2 water
+    { color: "#603cba", range: [0, 100] }, // Circle 3sleep min
+    { color: "#ffc40e", range: [0, 100] }  // Circle 4active min
+  ]
+});
+
+// Function to update a specific circle
+function updateCircle(index, percentage) {
+
+
+  c.radialMultiProgress("to", {
+    index: index,
+    perc: percentage,
+    time: 1000
+  });
+}
+
+    </script>
+    
+    <script>console.log(localStorage.getItem('username'))
+      document.getElementById('username').innerHTML = localStorage.getItem('username')+'!';</script>
+</body>
+</html>

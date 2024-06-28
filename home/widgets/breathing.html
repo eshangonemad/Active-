@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Meditation Website</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+  }
+  .container {
+    margin-top: -30px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  .options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin:2px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .flower {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #ff69b4;
+    border-radius: 50%;
+    animation: grow-shrink 5s infinite alternate ease-in-out;
+  }
+  @keyframes grow-shrink {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.2);
+    }
+  }
+</style>
+</head>
+<body>
+    <div class="top"><center><img src="/resources/textwlogo.png"  width="200px"></center></div>
+    <div class="wb">
+        <p style="font-size: large;line-height: 0%;"><b>Welcome Back,</b></p> 
+        <p id="username" style="font-size: xx-large;line-height: 0; font-family: 'Righteous', sans-serif;margin-top: 0.px;">[USERNAME]</p>
+    </div><br>
+<div class="container" id="startPage">
+  <h1>Meditation</h1>
+  <div class="options">
+    <button onclick="startMeditation(1)">1 Minute</button>
+    <button onclick="startMeditation(5)">5 Minutes</button>
+    <button onclick="startMeditation(10)">10 Minutes</button>
+  </div>
+</div>
+
+<div class="container" id="meditationPage" style="display: none;">
+  <h1>Focus on your breath</h1>
+  <p>Breathe in deeply...</p>
+  <div class="flower"></div>
+  <p>Breathe out slowly...</p>
+</div>
+<div class="nav">
+    <div style="display:flex;width:50%;;cursor: pointer;" onclick="window.open('/home/home.html','_self')" class="navu"><img src='/resources/icons/home.png' width="40px"><p style="font-size: large;margin-left: 10px;">Home</p></div>
+    
+    <div style="display:flex;width:50%;padding-left: 170px;cursor: pointer;" onclick="window.open('/You/you.html','_self')"class="navu"><p style="font-size: large;margin-right: 10px;">You</p><img src='/resources/icons/user.png' width="40px"></div>
+  </div>
+  <style>/* nav bar*/
+    .nav{
+        display: flex;
+        background-color: rgb(241, 205, 0);
+        width: 100%;
+        height: 40px;
+        margin-left: 0px;
+        padding: 10px;
+        position: fixed;
+      bottom: 0;
+    }</style>
+
+<script>
+function startMeditation(minutes) {
+  document.getElementById('startPage').style.display = 'none';
+  document.getElementById('meditationPage').style.display = 'block';
+  
+  setTimeout(() => {
+    document.getElementById('startPage').style.display = 'block';
+    document.getElementById('meditationPage').style.display = 'none';
+  }, minutes * 60 * 1000);
+}
+</script>
+<script>console.log(localStorage.getItem('username'))
+    document.getElementById('username').innerHTML = localStorage.getItem('username')+'!';</script>
+
+</body>
+</html>

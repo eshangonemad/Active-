@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Reminder Widget</title>
+    <style>
+        body{
+            overflow-y:hidden;
+        }
+        .widget {
+            margin-left: -10px;
+            margin-top: -10px;
+            width: 345px;
+            height: 70px;
+            background-color: #01abaa;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .time-display {
+          padding:10px;
+          border-radius:6px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .button {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #01abaa;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .button:active {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <img src="/resources/icons/water.png" width="70px">
+        <button class="button" id="decrease-time">-</button>
+        <div class="time-display" id="time-display">10 min</div>
+        <button class="button" id="increase-time">+</button>
+    </div>
+
+    <script>
+        let reminderTime = 10;
+        let timer = null;
+        const timeDisplay = document.getElementById('time-display');
+        const increaseButton = document.getElementById('increase-time');
+        const decreaseButton = document.getElementById('decrease-time');
+
+        increaseButton.addEventListener('click', () => {
+            reminderTime += 1;
+            updateTimeDisplay();
+        });
+
+        decreaseButton.addEventListener('click', () => {
+            if (reminderTime > 1) {
+                reminderTime -= 1;
+            }
+            updateTimeDisplay();
+        });
+
+        timeDisplay.addEventListener('click', () => {
+            if (timer !== null) {
+                clearInterval(timer);
+            }
+            startTimer();
+        });
+
+        function updateTimeDisplay() {
+            timeDisplay.textContent = `${reminderTime} min`;
+        }
+
+        function startTimer() {
+            let timeRemaining = reminderTime * 60;
+            timer = setInterval(() => {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timeDisplay.textContent = `${minutes} min ${seconds < 10 ? '0' : ''}${seconds} sec`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    alert('Time to drink water!');
+                    updateTimeDisplay();
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
